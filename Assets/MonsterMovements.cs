@@ -1,12 +1,8 @@
-using System;
 using UnityEngine;
 
-public class TestMoveTo : MonoBehaviour
+public class MonsterMovements : ACharacterMovements
 {
-    [SerializeField] private float _moveSpeed = 3f;
-    [SerializeField] private Transform _destination;
-
-    private Rigidbody _rb;
+    [SerializeField] protected Transform _destination;
 
     private void OnEnable()
     {
@@ -19,7 +15,7 @@ public class TestMoveTo : MonoBehaviour
         var position1 = transform1.position;
         Vector3 delta = _destination.position - position1;
         delta.Normalize();
-        position1 += delta * Time.deltaTime * _moveSpeed;
+        position1 += delta * Time.deltaTime * _speed;
         position1.y = 0.5f;
         transform1.position = position1;
         _rb.velocity = Vector3.zero; // Used to prevent cubes to struggle

@@ -1,7 +1,8 @@
-using System;
 using UnityEngine;
 
 public abstract class ACharacterController : MonoBehaviour
 {
-    public Action<ACharacterController> OnKilled;
+    [SerializeField] protected LayerMask _team;
+
+    public LayerMask Team => _team;
 }

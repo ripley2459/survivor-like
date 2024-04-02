@@ -12,14 +12,14 @@ public class PlayerController : ACharacterController
 
     private void OnEnable()
     {
-        _playerActions.Human.Enable();
+        //_playerActions.Human.Enable();
     }
 
     private void OnDisable()
     {
-        _playerActions.Human.Disable();
+        //_playerActions.Human.Disable();
     }
-    
+
     public void PushNotification(Notifications.Notification notification)
     {
         _notifications.PushNotification(notification);
