@@ -7,7 +7,7 @@ public class PoolingManager : AManager<PoolingManager>
     private readonly Dictionary<string, List<GameObject>> _pool = new Dictionary<string, List<GameObject>>();
 
     /// <summary>
-    /// Gives the opportunity to make operations of the spawned object.
+    /// Gives the opportunity to make operations of the spawned object before is activation.
     /// <param name="spawned">The spawned object.</param>
     /// </summary>
     public delegate void OnSpawn(GameObject spawned);
@@ -24,11 +24,12 @@ public class PoolingManager : AManager<PoolingManager>
     /// <returns>The spawned game object. Can be a totally new or a previously used.</returns>
     public GameObject Spawn(ref PoolableObject original, Vector3 position, Quaternion rotation, OnSpawn onPreSpawn = null, OnSpawn onPostSpawn = null)
     {
+        original.Original.SetActive(false);
         GameObject spawned = null;
 
         if (_pool.ContainsKey(original.GUID))
         {
-            foreach (var mono in _pool[original.GUID])
+            foreach (GameObject mono in _pool[original.GUID])
             {
                 if (!mono.gameObject.activeInHierarchy)
                 {
@@ -40,7 +41,7 @@ public class PoolingManager : AManager<PoolingManager>
 
         if (ReferenceEquals(spawned, null))
         {
-            spawned = Instantiate(original.GameObject, position, rotation, transform);
+            spawned = Instantiate(original.Original, position, rotation, transform);
 
             if (_pool.ContainsKey(original.GUID))
                 _pool[original.GUID].Add(spawned);
@@ -52,7 +53,7 @@ public class PoolingManager : AManager<PoolingManager>
         spawned.transform.rotation = rotation;
         spawned.gameObject.SetActive(true);
         onPostSpawn?.Invoke(spawned);
-
+        
         return spawned;
     }
 
@@ -60,12 +61,12 @@ public class PoolingManager : AManager<PoolingManager>
     public struct PoolableObject
     {
         [SerializeField] private string _uuid;
-        [SerializeField] public GameObject _gameObject;
+        [SerializeField] public GameObject _original;
 
         /// <summary>
         /// The game object used in the instantiate process.
         /// </summary>
-        public GameObject GameObject => _gameObject;
+        public GameObject Original => _original;
 
         /// <summary>
         /// The GUID of the pool. Created the first time the pool is used.

@@ -4,20 +4,27 @@ public class MonsterMovements : ACharacterMovements
 {
     [SerializeField] protected Transform _destination;
 
-    private void OnEnable()
+    private void Awake()
     {
         _rb ??= GetComponent<Rigidbody>();
     }
 
+    public void SetTarget(Transform target)
+    {
+        _destination = target;
+    }
+
     private void Update()
     {
-        var transform1 = transform;
-        var position1 = transform1.position;
+        if (ReferenceEquals(_destination, null))
+            return;
+
+        var position1 = transform.position;
         Vector3 delta = _destination.position - position1;
         delta.Normalize();
         position1 += delta * Time.deltaTime * _speed;
         position1.y = 0.5f;
-        transform1.position = position1;
+        transform.position = position1;
         _rb.velocity = Vector3.zero; // Used to prevent cubes to struggle
     }
 }

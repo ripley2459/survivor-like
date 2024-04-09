@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class TestPooler : MonoBehaviour
 {
-    [SerializeField] private PoolingManager.PoolableObject _testA;
+   /* [SerializeField] private PoolingManager.PoolableObject _testA;
     [SerializeField] private PoolingManager.PoolableObject _testB;
     [SerializeField] private PoolingManager.PoolableObject _testC;
 
@@ -26,5 +26,5 @@ public class TestPooler : MonoBehaviour
     private void OnPostSpawn(GameObject mono)
     {
         // print("Post spawn: " + mono.name);
-    }
+    }*/
 }

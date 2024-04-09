@@ -3,14 +3,20 @@ using UnityEngine;
 
 public abstract class ACharacterVitality : MonoBehaviour
 {
-    [SerializeField] protected int _life = 100;
+    [SerializeField] protected int _life = 1;
     protected ACharacterController _characterController;
 
-    public Action<ACharacterVitality> OnKilled;
+    public int Life
+    {
+        get => _life;
+        set => _life = value;
+    }
+
+    public Action<ACharacterController> OnKilled;
 
     private void Awake()
     {
-        _characterController ??= GetComponentInParent<ACharacterController>();
+        _characterController ??= GetComponent<ACharacterController>();
     }
 
     public void Damage(int damage)
@@ -18,6 +24,9 @@ public abstract class ACharacterVitality : MonoBehaviour
         _life -= damage;
 
         if (_life <= 0)
-            OnKilled?.Invoke(this);
+        {
+            OnKilled?.Invoke(_characterController);
+            gameObject.SetActive(false);
+        }
     }
 }

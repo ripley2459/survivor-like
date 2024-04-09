@@ -11,12 +11,4 @@ public class MonsterDamage : ACharacterDamage
     {
         _characterController ??= GetComponentInParent<ACharacterController>();
     }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.TryGetComponent<ACharacterVitality>(out ACharacterVitality vitality) && vitality.gameObject.layer != _characterController.Team)
-        {
-            vitality.Damage(_damage);
-        }
-    }
 }
