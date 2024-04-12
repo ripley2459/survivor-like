@@ -5,7 +5,7 @@ public abstract class ACharacterMovements : MonoBehaviour
     [SerializeField] protected float _speed;
     protected Rigidbody _rb;
 
-    private void Awake()
+    protected virtual void Awake()
     {
         _rb ??= GetComponent<Rigidbody>();
     }

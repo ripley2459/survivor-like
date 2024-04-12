@@ -12,7 +12,7 @@ public abstract class ACharacterController : MonoBehaviour
 
     public ACharacterMovements Movements => _movements;
 
-    private void Awake()
+    protected virtual void Awake()
     {
         _vitality ??= GetComponent<ACharacterVitality>();
         _movements ??= GetComponent<ACharacterMovements>();

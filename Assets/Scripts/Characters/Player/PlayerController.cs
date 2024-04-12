@@ -1,27 +1,13 @@
 public class PlayerController : ACharacterController
 {
-    private PlayerActions _playerActions;
-    public PlayerActions PlayerActions => _playerActions;
-    private Notifications _notifications;
+    public PlayerActions PlayerActions { get; private set; }
 
-    private void Awake()
-    {
-        _playerActions = new PlayerActions();
-        _notifications = GetComponentInChildren<Notifications>();
-    }
+    public PlayerLevel PlayerLevel { get; private set; }
 
-    private void OnEnable()
+    protected override void Awake()
     {
-        //_playerActions.Human.Enable();
-    }
+        base.Awake();
 
-    private void OnDisable()
-    {
-        //_playerActions.Human.Disable();
-    }
-
-    public void PushNotification(Notifications.Notification notification)
-    {
-        _notifications.PushNotification(notification);
+        PlayerLevel ??= GetComponent<PlayerLevel>();
     }
 }

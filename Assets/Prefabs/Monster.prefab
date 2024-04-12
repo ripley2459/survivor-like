@@ -75,6 +75,7 @@ GameObject:
   - component: {fileID: 1810247950324934944}
   - component: {fileID: 1810247950324934946}
   - component: {fileID: 4722596201144234090}
+  - component: {fileID: 1422040723971302373}
   m_Layer: 7
   m_Name: Monster
   m_TagString: Untagged
@@ -219,3 +220,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _life: 3
+--- !u!114 &1422040723971302373
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1810247950324934949}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1cd330426076e10479b62d9e78521d9d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _expCube:
+    _uuid: EXP_CUBE_1
+    _original: {fileID: 877751559467980349, guid: 36f71bdda4283164b9c80fc91a681fb2, type: 3}

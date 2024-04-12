@@ -1,16 +1,16 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ProgressBar : MonoBehaviour
+public abstract class ProgressBar : MonoBehaviour
 {
     private Slider _slider;
 
-    private void Awake()
+    protected virtual void Awake()
     {
         _slider = GetComponent<Slider>();
     }
 
-    public void SetProgress(float value)
+    public virtual void SetProgress(float value)
     {
         _slider.value = value;
     }

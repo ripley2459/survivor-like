@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class TestSpawner : AManager<TestSpawner>
@@ -34,17 +33,12 @@ public class TestSpawner : AManager<TestSpawner>
     {
         while (true)
         {
-            if (_spawnRate <= 0f)
-                _spawnRate = 0.1f;
-
             Vector3 pos = Vector3.zero;
 
             for (int i = 0; i < _spawnAmount; i++)
             {
                 pos = GetPosOutsideFrustum();
                 pos.y = 0.5f;
-
-                print("Will spawn a " + _original.Original.name + " at position " + pos);
 
                 GameObject spawned = PoolingManager.Instance.Spawn(ref _original, pos, Quaternion.identity);
 
@@ -55,11 +49,9 @@ public class TestSpawner : AManager<TestSpawner>
                     controller.Vitality.OnKilled += Despawn;
                     _spawned.Add(controller);
                 }
-
-                print("Spawned a " + spawned.gameObject.name + " at position " + spawned.transform.position);
             }
 
-            yield return new WaitForSeconds(_spawnRate);
+            yield return new WaitForSeconds(1f / _spawnRate);
         }
     }
 
