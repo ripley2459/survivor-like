@@ -62,33 +62,6 @@ public partial class @PlayerActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
-                },
-                {
-                    ""name"": ""Interact"",
-                    ""type"": ""Button"",
-                    ""id"": ""5a8ab688-3228-41be-8ef4-7d823f647618"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": true
-                },
-                {
-                    ""name"": ""Run"",
-                    ""type"": ""Button"",
-                    ""id"": ""8e467a7f-9287-4d8b-9ccf-9125c52394b8"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": true
-                },
-                {
-                    ""name"": ""Crouch"",
-                    ""type"": ""Button"",
-                    ""id"": ""86bde125-4de8-4fb2-85ca-0f015b0ddfd6"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": true
                 }
             ],
             ""bindings"": [
@@ -111,39 +84,6 @@ public partial class @PlayerActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": ""Keyboard & Mouse"",
                     ""action"": ""RightClick"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""1e4183a9-bc08-48b6-bdf3-fd904bdd2c31"",
-                    ""path"": ""<Keyboard>/e"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Keyboard & Mouse"",
-                    ""action"": ""Interact"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""76bdc8bb-1496-4157-ab71-a6e5ab525353"",
-                    ""path"": ""<Keyboard>/leftShift"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Keyboard & Mouse"",
-                    ""action"": ""Run"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""e8b1b4eb-37f7-4b4f-9883-dcd81cd2b941"",
-                    ""path"": ""<Keyboard>/leftCtrl"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Keyboard & Mouse"",
-                    ""action"": ""Crouch"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -252,9 +192,6 @@ public partial class @PlayerActions: IInputActionCollection2, IDisposable
         m_Human_Mouse = m_Human.FindAction("Mouse", throwIfNotFound: true);
         m_Human_LeftClick = m_Human.FindAction("LeftClick", throwIfNotFound: true);
         m_Human_RightClick = m_Human.FindAction("RightClick", throwIfNotFound: true);
-        m_Human_Interact = m_Human.FindAction("Interact", throwIfNotFound: true);
-        m_Human_Run = m_Human.FindAction("Run", throwIfNotFound: true);
-        m_Human_Crouch = m_Human.FindAction("Crouch", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -320,9 +257,6 @@ public partial class @PlayerActions: IInputActionCollection2, IDisposable
     private readonly InputAction m_Human_Mouse;
     private readonly InputAction m_Human_LeftClick;
     private readonly InputAction m_Human_RightClick;
-    private readonly InputAction m_Human_Interact;
-    private readonly InputAction m_Human_Run;
-    private readonly InputAction m_Human_Crouch;
     public struct HumanActions
     {
         private @PlayerActions m_Wrapper;
@@ -331,9 +265,6 @@ public partial class @PlayerActions: IInputActionCollection2, IDisposable
         public InputAction @Mouse => m_Wrapper.m_Human_Mouse;
         public InputAction @LeftClick => m_Wrapper.m_Human_LeftClick;
         public InputAction @RightClick => m_Wrapper.m_Human_RightClick;
-        public InputAction @Interact => m_Wrapper.m_Human_Interact;
-        public InputAction @Run => m_Wrapper.m_Human_Run;
-        public InputAction @Crouch => m_Wrapper.m_Human_Crouch;
         public InputActionMap Get() { return m_Wrapper.m_Human; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -355,15 +286,6 @@ public partial class @PlayerActions: IInputActionCollection2, IDisposable
             @RightClick.started += instance.OnRightClick;
             @RightClick.performed += instance.OnRightClick;
             @RightClick.canceled += instance.OnRightClick;
-            @Interact.started += instance.OnInteract;
-            @Interact.performed += instance.OnInteract;
-            @Interact.canceled += instance.OnInteract;
-            @Run.started += instance.OnRun;
-            @Run.performed += instance.OnRun;
-            @Run.canceled += instance.OnRun;
-            @Crouch.started += instance.OnCrouch;
-            @Crouch.performed += instance.OnCrouch;
-            @Crouch.canceled += instance.OnCrouch;
         }
 
         private void UnregisterCallbacks(IHumanActions instance)
@@ -380,15 +302,6 @@ public partial class @PlayerActions: IInputActionCollection2, IDisposable
             @RightClick.started -= instance.OnRightClick;
             @RightClick.performed -= instance.OnRightClick;
             @RightClick.canceled -= instance.OnRightClick;
-            @Interact.started -= instance.OnInteract;
-            @Interact.performed -= instance.OnInteract;
-            @Interact.canceled -= instance.OnInteract;
-            @Run.started -= instance.OnRun;
-            @Run.performed -= instance.OnRun;
-            @Run.canceled -= instance.OnRun;
-            @Crouch.started -= instance.OnCrouch;
-            @Crouch.performed -= instance.OnCrouch;
-            @Crouch.canceled -= instance.OnCrouch;
         }
 
         public void RemoveCallbacks(IHumanActions instance)
@@ -430,8 +343,5 @@ public partial class @PlayerActions: IInputActionCollection2, IDisposable
         void OnMouse(InputAction.CallbackContext context);
         void OnLeftClick(InputAction.CallbackContext context);
         void OnRightClick(InputAction.CallbackContext context);
-        void OnInteract(InputAction.CallbackContext context);
-        void OnRun(InputAction.CallbackContext context);
-        void OnCrouch(InputAction.CallbackContext context);
     }
 }

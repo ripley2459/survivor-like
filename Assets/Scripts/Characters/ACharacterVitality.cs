@@ -13,8 +13,9 @@ public abstract class ACharacterVitality : MonoBehaviour
     }
 
     public Action<ACharacterController> OnKilled;
+    public Action<ACharacterController, int> OnDamaged;
 
-    private void Awake()
+    protected virtual void Awake()
     {
         _characterController ??= GetComponent<ACharacterController>();
     }
@@ -22,7 +23,8 @@ public abstract class ACharacterVitality : MonoBehaviour
     public void Damage(int damage)
     {
         _life -= damage;
-
+        OnDamaged?.Invoke(_characterController, damage);
+        
         if (_life <= 0)
         {
             OnKilled?.Invoke(_characterController);
